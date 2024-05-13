@@ -1,5 +1,0 @@
-services:
-  - name: web
-    type: web
-    buildCommand: mvn package -DskipTests
-    startCommand: java -jar target/IgnouPercentageCalc.jar
