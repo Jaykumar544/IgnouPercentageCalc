@@ -6,7 +6,7 @@
   <version>1.0.0</version>
   <name>Archetype - IgnouPercentageCalc</name>
   <url>http://maven.apache.org</url>
-
+  <packaging>jar</packaging>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
