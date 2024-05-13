@@ -96,7 +96,7 @@
             <select id="course" name="course">
                 <option value="">Select Course</option>
                 <option value="BCA">BCA</option>
-                <option value="MCA">MCA</option>
+                
             </select>
         </div>
         <input type="submit" id="submitButton" value="Calculate">
