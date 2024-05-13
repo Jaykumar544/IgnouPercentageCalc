@@ -60,6 +60,14 @@
     input[type="submit"]:hover {
         background-color: #0056b3;
     }
+
+    /* Responsive CSS */
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 90%;
+            margin: 20px auto;
+        }
+    }
 </style>
 
 <script>

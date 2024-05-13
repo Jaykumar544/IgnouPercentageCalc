@@ -11,12 +11,13 @@
         padding: 0;
     }
     .container {
-        max-width: 800px;
+        max-width: 90%; /* Adjust the maximum width to 90% of the viewport */
         margin: 50px auto;
         padding: 20px;
         background-color: #f9f9f9;
         border: 1px solid #ccc;
         border-radius: 10px;
+        overflow: auto; /* Add overflow property to contain the table within the box */
     }
     h1 {
         text-align: center;
@@ -47,7 +48,6 @@
         background-color: #f2f2f2;
     }
 </style>
-
 </head>
 <body>
 
@@ -64,19 +64,21 @@
 
     <p> </p> <br>
     <div class="info">
-            <p style="color:green"><strong> Percentage :- </strong> ${percentage}</p>
-            <p></p>
-            <p><strong style="color:red">Note : </strong> Only subjects having both assignments and exam marks more than 35% are included in calculation.</p>
+        <p style="color:green"><strong> Percentage :- </strong> ${percentage}</p>
+        <p></p>
+        <p><strong style="color:red">Note : </strong> Only subjects having both assignments and exam marks more than 35% are included in calculation.</p>
     </div>
-
 </div>
 
 <script>
-    var table = document.getElementById("ctl00_ContentPlaceHolder1_gvDetail");
+    // JavaScript code to remove the last row of the table
+    window.onload = function() {
+        var table = document.getElementById("ctl00_ContentPlaceHolder1_gvDetail");
         var lastRow = table.rows[table.rows.length - 1]; // Get the last row
 
         // Remove the last row
         lastRow.parentNode.removeChild(lastRow);
+    };
 </script>
 
 </body>
