@@ -41,7 +41,7 @@ public class MainController
             double totalMarks=0;
             double percentage=0;
 
-            String url = "https://gradecard.ignou.ac.in/gradecard/view_gradecard.aspx?eno="+enrollNo+"&prog=BCA&type=1";
+            String url = "https://gradecard.ignou.ac.in/gradecard/view_gradecard.aspx?eno="+enrollNo+"&prog="+course+"&type=1";
             Document doc = Jsoup.connect(url).get();
 
 
