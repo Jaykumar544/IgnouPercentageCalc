@@ -47,6 +47,30 @@
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+    .percentage {
+        font-size: 150%;
+        color: green;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            margin: 20px auto;
+            padding: 10px;
+        }
+        th, td {
+            padding: 8px;
+            font-size: 12px;
+        }
+        h1, h2 {
+            font-size: 18px;
+        }
+        .info p {
+            font-size: 14px;
+        }
+        .percentage {
+            font-size: 200%;
+        }
+    }
 </style>
 </head>
 <body>
@@ -64,20 +88,33 @@
 
     <p> </p> <br>
     <div class="info">
-        <p style="color:green"><strong> Percentage :- </strong> ${percentage}</p>
         <p></p>
-        <p><strong style="color:red">Note : </strong> Only subjects having both assignments and exam marks more than 35% are included in calculation.</p>
+        <p class="percentage"><strong>Percentage :- </strong> ${percentage}</p>
     </div>
 </div>
 
 <script>
-    // JavaScript code to remove the last row of the table
     window.onload = function() {
         var table = document.getElementById("ctl00_ContentPlaceHolder1_gvDetail");
-        var lastRow = table.rows[table.rows.length - 1]; // Get the last row
 
         // Remove the last row
+        var lastRow = table.rows[table.rows.length - 1];
         lastRow.parentNode.removeChild(lastRow);
+
+        // Function to remove specific columns from a row
+        function removeColumns(row, indices) {
+            for (var i = indices.length - 1; i >= 0; i--) {
+                row.deleteCell(indices[i]);
+            }
+        }
+
+        // Column indices to remove (0-based index)
+        var columnsToRemove = [2, 3, 4, 5];
+
+        // Iterate through each row and remove the specified columns
+        for (var i = 0; i < table.rows.length; i++) {
+            removeColumns(table.rows[i], columnsToRemove);
+        }
     };
 </script>
 

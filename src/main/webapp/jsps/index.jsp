@@ -104,6 +104,9 @@
             <select id="course" name="course">
                 <option value="">Select Course</option>
                 <option value="BCA">BCA</option>
+                <option value="MCA">MCA</option>
+                <option value="BCA_NEW">BCA_NEW</option>
+                <option value="MCA_NEW">MCA_NEW</option>
 
             </select>
         </div>

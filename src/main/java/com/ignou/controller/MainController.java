@@ -30,19 +30,28 @@ public class MainController
     }
 
     @RequestMapping("/gradeCard")
-    public ModelAndView gradeCard(@RequestParam String enrollNo, @RequestParam String course, HttpServletRequest request, HttpServletResponse response)
+    public ModelAndView gradeCard(@RequestParam String enrollNo, @RequestParam String course)
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/gradeCard");
-//        HttpSession session = request.getSession();
 
         try {
             List<Double> marks=new ArrayList<>();
             double totalMarks=0;
             double percentage=0;
+            Document doc = null;
 
             String url = "https://gradecard.ignou.ac.in/gradecard/view_gradecard.aspx?eno="+enrollNo+"&prog="+course+"&type=1";
-            Document doc = Jsoup.connect(url).get();
+            try
+            {
+                doc = Jsoup.connect(url).get();
+            }
+            catch (Exception e)
+            {
+                ModelAndView modelAndView1 = index();
+                modelAndView1.addObject("errorMsg"," Server didn't respond");
+                return modelAndView1;
+            }
 
 
             // extracting personal details (name, enrollment No, course)
@@ -67,13 +76,12 @@ public class MainController
             if(table==null)
             {
                 ModelAndView modelAndView1 = index();
-                modelAndView1.addObject("errorMsg","Error, either enrollment no not found or other issue.");
+                modelAndView1.addObject("errorMsg","Invalid Enrollment No or Course");
                 return modelAndView1;
             }
 
             // Pass the table to the JSP page
             modelAndView.addObject("table", table.toString());
-
 
             // Select the table rows except the header row
             Elements rows = table.select("tr:gt(0)");
@@ -82,18 +90,20 @@ public class MainController
                 Elements columns = row.select("td");
                 String subjectNo = columns.get(0).text();
                 String assignmentMarks = columns.get(1).text();
+                String status = columns.get(8).text();
                 String examMarks;
                 if(subjectNo.contains("L"))
                     examMarks=columns.get(7).text();
                 else
                     examMarks=columns.get(6).text();
 
+                if(status.equalsIgnoreCase("COMPLETED"))
+                    marks.add(calculatingPerSubject(subjectNo, assignmentMarks,examMarks));
 
-                if(!assignmentMarks.equals("-") && !examMarks.equals("-") && !assignmentMarks.isEmpty() && !examMarks.isEmpty())
-                {
-                    if(Double.parseDouble(assignmentMarks)>35 && Double.parseDouble(examMarks)>35)
-                        marks.add(calculatingPerSubject(subjectNo, assignmentMarks,examMarks));
-                }
+//                if(!assignmentMarks.equals("-") && !examMarks.equals("-") && !assignmentMarks.isEmpty() && !examMarks.isEmpty())
+//                {
+//
+//                }
             }
 
             for(Double d:marks)
@@ -101,7 +111,7 @@ public class MainController
                 totalMarks+=d;
             }
             percentage=totalMarks/marks.size();
-            modelAndView.addObject("percentage",percentage);
+            modelAndView.addObject("percentage",String.format("%.4f", percentage));
 
         }
         catch (Exception e) {
