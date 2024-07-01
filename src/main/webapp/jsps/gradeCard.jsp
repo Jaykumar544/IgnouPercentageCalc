@@ -93,8 +93,6 @@
     <p> </p> <br>
     <div class="info">
         <p class="percentage"><strong>Percentage :- </strong> ${percentage}</p>
-        <p></p>
-        <p><strong style="color:red">Note : </strong> Only subjects having both assignments and exam marks more than 35% are included in calculation.</p>
     </div>
 </div>
 
