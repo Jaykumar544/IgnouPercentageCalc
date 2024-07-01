@@ -21,7 +21,7 @@
     }
     h1 {
         text-align: center;
-        color: #333;
+        color: purple;
     }
     h2 {
         text-align: center;
@@ -29,6 +29,10 @@
     }
     .info {
         margin-bottom: 20px;
+    }
+    .info p {
+        color: darkblue;
+        font-size: 150%;
     }
     table {
         width: 100%;
@@ -88,8 +92,9 @@
 
     <p> </p> <br>
     <div class="info">
-        <p></p>
         <p class="percentage"><strong>Percentage :- </strong> ${percentage}</p>
+        <p></p>
+        <p><strong style="color:red">Note : </strong> Only subjects having both assignments and exam marks more than 35% are included in calculation.</p>
     </div>
 </div>
 
