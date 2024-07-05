@@ -54,21 +54,16 @@ public class MainController
                 return modelAndView1;
             }
 
-
             // extracting personal details (name, enrollment No, course)
-
             Element spanElement = doc.getElementById("ctl00_ContentPlaceHolder1_lblDispEnrolno");
             if (spanElement != null)
                 modelAndView.addObject("enrollmentNo", spanElement.text());
-
             spanElement = doc.getElementById("ctl00_ContentPlaceHolder1_lblDispname");
             if (spanElement != null)
                 modelAndView.addObject("studentName",spanElement.text());
-
             spanElement = doc.getElementById("ctl00_ContentPlaceHolder1_lblDispProgCode");
             if (spanElement != null)
                 modelAndView.addObject("courseName",spanElement.text());
-
 
 
             // Select the table by its ID
@@ -85,13 +80,13 @@ public class MainController
 
             // Select the table rows except the header row
             Elements rows = table.select("tr:gt(0)");
-
             for (Element row : rows) {
                 Elements columns = row.select("td");
                 String subjectNo = columns.get(0).text();
                 String assignmentMarks = columns.get(1).text();
                 String status = columns.get(8).text();
                 String examMarks;
+
                 if(subjectNo.contains("L"))
                     examMarks=columns.get(7).text();
                 else
@@ -104,8 +99,6 @@ public class MainController
 
                 if(status.equalsIgnoreCase("COMPLETED"))
                     calculatingPerSubject(subjectNo,assignmentMarks,examMarks);
-//                    marks.add(calculatingPerSubject(subjectNo, assignmentMarks,examMarks));
-
             }
 
             for(Double d:marks)
