@@ -29,6 +29,7 @@ public class MainController
         return modelAndView;
     }
 
+    List<Double> marks=new ArrayList<>();
     @RequestMapping("/gradeCard")
     public ModelAndView gradeCard(@RequestParam String enrollNo, @RequestParam String course)
     {
@@ -36,12 +37,12 @@ public class MainController
         modelAndView.setViewName("/gradeCard");
 
         try {
-            List<Double> marks=new ArrayList<>();
             double totalMarks=0;
             double percentage=0;
             Document doc = null;
 
             String url = "https://gradecard.ignou.ac.in/gradecard/view_gradecard.aspx?eno="+enrollNo+"&prog="+course+"&type=1";
+            System.out.println(url);
             try
             {
                 doc = Jsoup.connect(url).get();
@@ -72,7 +73,6 @@ public class MainController
 
             // Select the table by its ID
             Element table = doc.getElementById("ctl00_ContentPlaceHolder1_gvDetail");
-
             if(table==null)
             {
                 ModelAndView modelAndView1 = index();
@@ -97,13 +97,15 @@ public class MainController
                 else
                     examMarks=columns.get(6).text();
 
-                if(status.equalsIgnoreCase("COMPLETED"))
-                    marks.add(calculatingPerSubject(subjectNo, assignmentMarks,examMarks));
+                if(assignmentMarks.equals("-"))
+                    assignmentMarks="0";
+                if(examMarks.equals("-"))
+                    examMarks="0";
 
-//                if(!assignmentMarks.equals("-") && !examMarks.equals("-") && !assignmentMarks.isEmpty() && !examMarks.isEmpty())
-//                {
-//
-//                }
+                if(status.equalsIgnoreCase("COMPLETED"))
+                    calculatingPerSubject(subjectNo,assignmentMarks,examMarks);
+//                    marks.add(calculatingPerSubject(subjectNo, assignmentMarks,examMarks));
+
             }
 
             for(Double d:marks)
@@ -121,13 +123,21 @@ public class MainController
         return modelAndView;
     }
 
-    public Double calculatingPerSubject(String subjectNo, String assignmentMarks, String examMarks)
+    public void calculatingPerSubject(String subjectNo, String assignmentMarks, String examMarks)
     {
         double assMarks = Float.parseFloat(assignmentMarks);
         double exMarks = Float.parseFloat(examMarks);
-        if(subjectNo.equals("ECO01") || subjectNo.equals("ECO02") || subjectNo.equals("FEG02"))
-            return (Double) (assMarks*0.3+exMarks*0.7);
+
+        if(subjectNo.equals("BCSP064"))
+        {
+            marks.add(exMarks/2);
+            marks.add(exMarks/2);
+        }
+        else if(subjectNo.equals("ECO01") || subjectNo.equals("ECO02") || subjectNo.equals("FEG02"))
+        {
+            marks.add(assMarks*0.3+exMarks*0.7);
+        }
         else
-            return (Double) (assMarks*0.25+exMarks*0.75);
+            marks.add(assMarks*0.25+exMarks*0.75);
     }
 }
