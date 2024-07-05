@@ -86,7 +86,6 @@ public class MainController
                 String assignmentMarks = columns.get(1).text();
                 String status = columns.get(8).text();
                 String examMarks;
-
                 if(subjectNo.contains("L"))
                     examMarks=columns.get(7).text();
                 else
@@ -112,7 +111,6 @@ public class MainController
         catch (Exception e) {
             e.printStackTrace();
         }
-
         return modelAndView;
     }
 
@@ -127,9 +125,7 @@ public class MainController
             marks.add(exMarks/2);
         }
         else if(subjectNo.equals("ECO01") || subjectNo.equals("ECO02") || subjectNo.equals("FEG02"))
-        {
             marks.add(assMarks*0.3+exMarks*0.7);
-        }
         else
             marks.add(assMarks*0.25+exMarks*0.75);
     }
