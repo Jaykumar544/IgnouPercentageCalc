@@ -29,7 +29,6 @@ public class MainController
         return modelAndView;
     }
 
-    List<Double> marks=new ArrayList<>();
     @RequestMapping("/gradeCard")
     public ModelAndView gradeCard(@RequestParam String enrollNo, @RequestParam String course)
     {
@@ -37,22 +36,13 @@ public class MainController
         modelAndView.setViewName("/gradeCard");
 
         try {
+            List<Double> marks=new ArrayList<>();
             double totalMarks=0;
             double percentage=0;
-            Document doc = null;
 
             String url = "https://gradecard.ignou.ac.in/gradecard/view_gradecard.aspx?eno="+enrollNo+"&prog="+course+"&type=1";
+            Document doc = Jsoup.connect(url).get();
             System.out.println(url);
-            try
-            {
-                doc = Jsoup.connect(url).get();
-            }
-            catch (Exception e)
-            {
-                ModelAndView modelAndView1 = index();
-                modelAndView1.addObject("errorMsg"," Server didn't respond");
-                return modelAndView1;
-            }
 
             // extracting personal details (name, enrollment No, course)
             Element spanElement = doc.getElementById("ctl00_ContentPlaceHolder1_lblDispEnrolno");
@@ -65,13 +55,12 @@ public class MainController
             if (spanElement != null)
                 modelAndView.addObject("courseName",spanElement.text());
 
-
             // Select the table by its ID
             Element table = doc.getElementById("ctl00_ContentPlaceHolder1_gvDetail");
             if(table==null)
             {
                 ModelAndView modelAndView1 = index();
-                modelAndView1.addObject("errorMsg","Invalid Enrollment No or Course");
+                modelAndView1.addObject("errorMsg","Error, either enrollment no not found or other issue.");
                 return modelAndView1;
             }
 
@@ -91,13 +80,15 @@ public class MainController
                 else
                     examMarks=columns.get(6).text();
 
-                if(assignmentMarks.equals("-"))
-                    assignmentMarks="0";
-                if(examMarks.equals("-"))
-                    examMarks="0";
-
-                if(status.equalsIgnoreCase("COMPLETED"))
-                    calculatingPerSubject(subjectNo,assignmentMarks,examMarks);
+                if(subjectNo.equals("BCSP064"))
+                {
+                    double exMarks = Double.parseDouble(columns.get(7).text());
+                    marks.add(exMarks/2);
+                    marks.add(exMarks/2);
+                }
+                else
+                    if(status.equals("COMPLETED"))
+                        marks.add(calculatingPerSubject(subjectNo, assignmentMarks,examMarks));
             }
 
             for(Double d:marks)
@@ -106,7 +97,6 @@ public class MainController
             }
             percentage=totalMarks/marks.size();
             modelAndView.addObject("percentage",String.format("%.4f", percentage));
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -114,19 +104,13 @@ public class MainController
         return modelAndView;
     }
 
-    public void calculatingPerSubject(String subjectNo, String assignmentMarks, String examMarks)
+    public Double calculatingPerSubject(String subjectNo, String assignmentMarks, String examMarks)
     {
         double assMarks = Float.parseFloat(assignmentMarks);
         double exMarks = Float.parseFloat(examMarks);
-
-        if(subjectNo.equals("BCSP064"))
-        {
-            marks.add(exMarks/2);
-            marks.add(exMarks/2);
-        }
-        else if(subjectNo.equals("ECO01") || subjectNo.equals("ECO02") || subjectNo.equals("FEG02"))
-            marks.add(assMarks*0.3+exMarks*0.7);
+        if(subjectNo.equals("ECO01") || subjectNo.equals("ECO02") || subjectNo.equals("FEG02"))
+            return (Double) (assMarks*0.3+exMarks*0.7);
         else
-            marks.add(assMarks*0.25+exMarks*0.75);
+            return (Double) (assMarks*0.25+exMarks*0.75);
     }
 }
