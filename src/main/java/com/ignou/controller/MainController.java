@@ -85,8 +85,7 @@ public class MainController
                     examMarks = columns.get(7).text();
                     assignmentMarks = columns.get(2).text();
                     double total = calculatingPerSubject(subjectNo,assignmentMarks,examMarks);
-                    marks.add(total/2);
-                    marks.add(total/2);
+                    marks.add(total);
                 }
                 else
                     if(status.equals("COMPLETED"))
