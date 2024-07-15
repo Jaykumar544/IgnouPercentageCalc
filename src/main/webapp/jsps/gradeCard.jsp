@@ -112,7 +112,7 @@
         }
 
         // Column indices to remove (0-based index)
-        var columnsToRemove = [2, 3, 4, 5];
+        var columnsToRemove = [3, 4, 5];
 
         // Iterate through each row and remove the specified columns
         for (var i = 0; i < table.rows.length; i++) {
