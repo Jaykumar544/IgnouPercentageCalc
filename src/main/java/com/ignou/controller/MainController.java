@@ -80,11 +80,13 @@ public class MainController
                 else
                     examMarks=columns.get(6).text();
 
-                if(subjectNo.equals("BCSP064"))
+                if(subjectNo.equals("BCSP064") && status.equals("COMPLETED"))
                 {
-                    double exMarks = Double.parseDouble(columns.get(7).text());
-                    marks.add(exMarks/2);
-                    marks.add(exMarks/2);
+                    examMarks = columns.get(7).text();
+                    assignmentMarks = columns.get(2).text();
+                    double total = calculatingPerSubject(subjectNo,assignmentMarks,examMarks);
+                    marks.add(total/2);
+                    marks.add(total/2);
                 }
                 else
                     if(status.equals("COMPLETED"))
@@ -106,8 +108,8 @@ public class MainController
 
     public Double calculatingPerSubject(String subjectNo, String assignmentMarks, String examMarks)
     {
-        double assMarks = Float.parseFloat(assignmentMarks);
-        double exMarks = Float.parseFloat(examMarks);
+        double assMarks = Double.parseDouble(assignmentMarks);
+        double exMarks = Double.parseDouble(examMarks);
         if(subjectNo.equals("ECO01") || subjectNo.equals("ECO02") || subjectNo.equals("FEG02"))
             return (Double) (assMarks*0.3+exMarks*0.7);
         else
