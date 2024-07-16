@@ -12,26 +12,53 @@
         box-sizing: border-box;
         background-color: #f5f5f5;
     }
+    .header {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 5px solid #0056b3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5f5f5; /* Match the container's background color */
+    }
+    .header img {
+        width: 70px;
+        height: 70px;
+        margin-right: 10px;
+        filter: brightness(1.2);
+    }
+    .header h1 {
+        font-size: 2.5em;
+        margin: 0;
+        vertical-align: middle;
+        color: blue; /* Keep the text color blue */
+    }
+    .header a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
     .container {
         max-width: 600px;
-        margin: 50px auto;
+        margin: 20px auto;
         padding: 20px;
         border-radius: 10px;
         background-color: #fff;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     }
-    h1 {
+    h2 {
         text-align: center;
         color: purple;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
-    h2 {
+    h3 {
         text-align: center;
         color: #007bff;
         margin-bottom: 30px;
     }
     form {
         margin-top: 20px;
+        margin-bottom: 50px;
     }
     .form-group {
         margin-bottom: 20px;
@@ -60,40 +87,34 @@
     input[type="submit"]:hover {
         background-color: #0056b3;
     }
-
-    /* Responsive CSS */
-    @media screen and (max-width: 600px) {
-        .container {
-            width: 90%;
-            margin: 20px auto;
-        }
+    .footer {
+        text-align: right;
+        font-size: 16px;
+        color: black;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: calc(100% - 60px);
+    }
+    .footer .contact {
+        margin-bottom: 10px;
+    }
+    .footer .developed a {
+        color: darkgreen;
+        display: inline-block;
     }
 </style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var form = document.getElementById("percentageForm");
-        form.addEventListener("submit", function(event) {
-            var enrollmentNo = document.getElementById("enrollmentNo").value;
-            var course = document.getElementById("course").value;
-
-            if (enrollmentNo.trim() === "" || course === "") {
-                alert("Please fill out all the fields");
-                event.preventDefault(); // Prevent the form from submitting
-            }
-        });
-    });
-
-</script>
-
 </head>
 <body>
 
-<div class="container">
-    <h1>INDIRA GANDHI NATIONAL OPEN UNIVERSITY</h1>
-    <h2>Percentage Calculator</h2>
+<br><br><br>
 
-    <br> <h2 style="color:red">${errorMsg}</h2>
+<div class="container">
+
+    <h2>INDIRA GANDHI NATIONAL OPEN UNIVERSITY</h2>
+    <h3>Percentage Calculator</h3>
+
+    <h3 style="color:red">${errorMsg}</h3>
     <form id="percentageForm" action="/gradeCard" method="post">
         <div class="form-group">
             <label for="enrollmentNo">Enrollment No:</label>
@@ -104,11 +125,20 @@
             <select id="course" name="course">
                 <option value="">Select Course</option>
                 <option value="BCA">BCA</option>
-
             </select>
         </div>
         <input type="submit" id="submitButton" value="Calculate">
     </form>
+
+    <div class="footer">
+        <div class="contact">
+            <b>Contact & Feedback at - </b>
+            <a href="mailto:jayk59920@gmail.com">jayk59920@gmail.com</a> <br>
+        </div>
+        <div class="developed">
+            <a href="https://www.linkedin.com/in/jaychand-kumar-908038215/" style="color: darkgreen;"> Developed by - Jay</a> <br>
+        </div>
+    </div>
 </div>
 
 </body>
