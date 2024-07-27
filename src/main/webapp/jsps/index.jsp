@@ -17,8 +17,8 @@
         text-align: center;
         border-bottom: 5px solid #0056b3;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
         background-color: #f5f5f5; /* Match the container's background color */
     }
     .header img {
@@ -30,13 +30,16 @@
     .header h1 {
         font-size: 2.5em;
         margin: 0;
-        vertical-align: middle;
         color: blue; /* Keep the text color blue */
     }
     .header a {
         text-decoration: none;
-        display: flex;
-        align-items: center;
+        color: blue; /* Color blue for the link */
+    }
+    .header i {
+        margin-top: 10px;
+        font-style: italic;
+        color: darkred; /* Color dark red for the i tag */
     }
     .container {
         max-width: 600px;
@@ -107,10 +110,17 @@
 </head>
 <body>
 
-<br><br><br>
+<div class="header">
+    <a href="https://biitclasses.in/">
+        <img src="bl1 png file.png" alt="Logo">
+        <h1>BIIT CLASSES FOR IGNOU BCA/MCA</h1>
+    </a>
+    <a href="https://biitclasses.in/">
+        <i>Classes available for BCA/MCA B.TECH(CS)</i>
+    </a>
+</div>
 
 <div class="container">
-
     <h2>INDIRA GANDHI NATIONAL OPEN UNIVERSITY</h2>
     <h3>Percentage Calculator</h3>
 
@@ -130,14 +140,15 @@
         <input type="submit" id="submitButton" value="Calculate">
     </form>
 
-    <div class="footer">
+    <div class="footer"> <center>
         <div class="contact">
-            <b>Contact & Feedback at - </b>
-            <a href="mailto:jayk59920@gmail.com">jayk59920@gmail.com</a> <br>
+            <b>Contact & Feedback</b> - RZ 11/12 Extn.Opp Hanuman Mandir, Pali factory road,<br> Indra Park, Uttam Nagar, Delhi-110059
+            <br>7290803744, 8700652427
+            <br><a href="mailto:biitclasses@gmail.com">biitclasses@gmail.com</a>
         </div>
         <div class="developed">
-            <a href="https://www.linkedin.com/in/jaychand-kumar-908038215/" style="color: darkgreen;"> Developed by - Jay</a> <br>
-        </div>
+            <a href="https://www.linkedin.com/in/jaychand-kumar-908038215/" style="color: darkgreen;">Developed by - Jay</a>
+        </div> </center>
     </div>
 </div>
 
