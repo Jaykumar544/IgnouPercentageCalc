@@ -112,7 +112,7 @@
 
 <div class="header">
     <a href="https://biitclasses.in/">
-        <img src="bl1 png file.png" alt="Logo">
+        <img src="/static/bl1 png file.png" alt="Logo">
         <h1>BIIT CLASSES FOR IGNOU BCA/MCA</h1>
     </a>
     <a href="https://biitclasses.in/">
